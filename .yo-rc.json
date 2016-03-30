@@ -1,0 +1,14 @@
+{
+  "generator-kraken": {
+    "taskModule": "grunt",
+    "lintModule": "eslint",
+    "description": "Gives shortest path to the selected destinations to travel and displays the path on Google maps",
+    "author": "HirokiARK",
+    "templateModule": false,
+    "i18n": "i18n",
+    "componentPackager": "bower",
+    "cssModule": false,
+    "jsModule": false,
+    "useJson": null
+  }
+}

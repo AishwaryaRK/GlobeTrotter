@@ -4,7 +4,7 @@
   "main": "index.js",
   "author": "HirokiARK",
   "moduleType": [
-    "node"
+    "amd"
   ],
   "private": true,
   "ignore": [
@@ -14,5 +14,8 @@
     "public/components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "requirejs": "^2.1.16"
+  }
 }

@@ -1,5 +1,34 @@
-{>"layouts/master" /}
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html ng-app="GlobeTrotter">
+<head>
+    <title>GlobeTrotter</title>
+    <link href='css/main.css' rel='stylesheet'/>
+    <link href='css/bootstrap.min.css' rel='stylesheet'/>
+    <script type="text/javascript" src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script type="text/javascript" src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
-{<body}
-    <h1>{@pre type="content" key="greeting"/}</h1>
-{/body}
+    <script type="text/javascript" src="js/appAngular.js"></script>
+</head>
+<body>
+<div class='logo navbar navbar-inverse navbar-fixed-top '>
+    <h2 class="headingbar" style="float:left; color: cyan">GlobeTrotter</h2>
+</div>
+
+<div class='clearfix' style="height:50px"></div>
+
+<div class='container-fluid' ng-controller="FooterController">
+    <div class='row'>
+
+
+    </div>
+</div>
+
+<div class='footer navbar-fixed-bottom navbar navbar-inverse'>
+    <div ng-controller="FooterController" ng-include="'partials/footer.html'"></div>
+</div>
+
+</body>
+</html>

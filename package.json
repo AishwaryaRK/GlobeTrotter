@@ -10,6 +10,7 @@
     "all": "npm run build && npm run test"
   },
   "dependencies": {
+    "chai": "^3.5.0",
     "construx": "^1.0.0",
     "construx-copier": "^1.0.0",
     "construx-dustjs": "^1.1.0",

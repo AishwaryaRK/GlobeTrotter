@@ -16,7 +16,7 @@ describe('ShortestPathFinder.test', function () {
                 {lat: 5, lng: 7},
                 {lat: 6, lng: 3}
             ];
-            var shortestPathNodes = [2, 4, 1, 0, 5];
+            var shortestPathNodes = [2, 3, 1, 0, 4];
             var expectedOutput = [
                 {lat: 4, lng: 48},
                 {lat: 5, lng: 7},

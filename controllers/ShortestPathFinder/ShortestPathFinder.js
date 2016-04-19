@@ -27,10 +27,13 @@ var getShortestPath = function getShortestPath(req, res, next) {
  */
 var convertNodesToLocations = function convertNodesToLocations(locations, shortestPathNodes, callback) {
     var shortestPath = [];
+    for (var i = 0; i < shortestPathNodes.length; i++) {
+        shortestPath.push(locations[shortestPathNodes[i]]);
+    }
     callback(null, shortestPath);
 };
 
 module.exports = {
     getShortestPath: getShortestPath,
-    convertNodesToLocations:convertNodesToLocations
+    convertNodesToLocations: convertNodesToLocations
 };

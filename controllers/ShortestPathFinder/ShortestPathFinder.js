@@ -2,6 +2,7 @@
 
 var GoogleMapUtility = require('../GoogleMapUtility');
 var Grapher = require('../Grapher');
+var TSPAlgorithm = require('./TSPAlgorithm');
 var async = require('async');
 
 var getShortestPath = function getShortestPath(req, res, next) {
@@ -12,7 +13,7 @@ var getShortestPath = function getShortestPath(req, res, next) {
     },
         GoogleMapUtility.getPositions,
         Grapher.constructGraph,
-        tspDynamicAlgo,
+        TSPAlgorithm.tspDynamicAlgo,
         convertNodesToLocations
     ], function (err, result) {
         req.shortestPath = result;
@@ -20,15 +21,16 @@ var getShortestPath = function getShortestPath(req, res, next) {
     });
 };
 
-var tspDynamicAlgo = function tspDynamicAlgo(locations, graph, callback) {
-    var shortestPathNodes = [];
-    callback(null, locations, shortestPathNodes);
-};
-
+/**
+ Built for the pattern of an async.waterfall.
+ Callback first param is for errors.
+ */
 var convertNodesToLocations = function convertNodesToLocations(locations, shortestPathNodes, callback) {
+    var shortestPath = [];
     callback(null, shortestPath);
 };
 
 module.exports = {
-    getShortestPath: getShortestPath
+    getShortestPath: getShortestPath,
+    convertNodesToLocations:convertNodesToLocations
 };

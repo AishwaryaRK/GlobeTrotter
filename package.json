@@ -20,7 +20,8 @@
     "express": "^4.12.2",
     "kraken-js": "^1.0.3",
     "makara": "^2.0.3",
-    "requirejs": "^2.2.0"
+    "requirejs": "^2.2.0",
+    "sinon": "^1.17.3"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

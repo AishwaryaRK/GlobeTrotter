@@ -18,7 +18,6 @@ var getPosition = function getPosition(location, callback) {
         port: 443,
         method: 'GET'
     };
-    console.log("path -> " + options.path);
     https.get(options, function (response) {
         var body = "";
         response.on('data', function (chunk) {
@@ -26,25 +25,27 @@ var getPosition = function getPosition(location, callback) {
         });
         response.on('end', function () {
             var position = JSON.parse(body).results[0].geometry.location;
-            console.log("data returned by API:- ");
-            console.log(position);
             callback(position);
         });
     });
 };
 
-var getPositions = function getPositions(locations, onDone) {
+/**
+ Built for the pattern of an async.waterfall.
+ Callback first param is for errors.
+ */
+var getPositions = function getPositions(locations, callback) {
     var positions = [];
-    async.each(locations, function (location, callback) {
+    async.each(locations, function (location, onDone) {
         getPosition(location, function (position) {
             positions.push(position);
-            callback();
+            onDone();
         });
     }, function (err) {
         if (err) {
             console.log(err);
         } else {
-            onDone(positions);
+            callback(null, locations, positions);
         }
     });
 };

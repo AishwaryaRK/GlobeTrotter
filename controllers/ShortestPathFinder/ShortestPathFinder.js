@@ -1,18 +1,32 @@
 'use strict';
 
 var GoogleMapUtility = require('../GoogleMapUtility');
+var Grapher = require('../Grapher');
+var async = require('async');
 
 var getShortestPath = function getShortestPath(req, res, next) {
     var locations = req.body.locations;
-    GoogleMapUtility.getPositions(locations, function (positions) {
-        console.log(JSON.stringify(positions));
-        req.shortestPath = [];
+    async.waterfall([function (next) {
+        next(null, locations);
+        //this is a hack to pass params to first function
+    },
+        GoogleMapUtility.getPositions,
+        Grapher.constructGraph,
+        tspDynamicAlgo,
+        convertNodesToLocations
+    ], function (err, result) {
+        req.shortestPath = result;
         next();
     });
 };
 
-var getDistance = function getDistance(position1, position2) {
-var radiusOfEarth = 6371000  // earth's radiuis = 6,371km
+var tspDynamicAlgo = function tspDynamicAlgo(locations, graph, callback) {
+    var shortestPathNodes = [];
+    callback(null, locations, shortestPathNodes);
+};
+
+var convertNodesToLocations = function convertNodesToLocations(locations, shortestPathNodes, callback) {
+    callback(null, shortestPath);
 };
 
 module.exports = {

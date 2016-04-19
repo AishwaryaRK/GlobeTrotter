@@ -55,6 +55,20 @@ var constructGraph = function constructGraph(locations, callback) {
     });
 };
 
+/**
+ Built for the pattern of an async.waterfall.
+ Callback first param is for errors.
+ */
+var convertNodesToLocations = function convertNodesToLocations(locations, shortestPathNodes, callback) {
+    var shortestPath = [];
+    for (var i = 0; i < shortestPathNodes.length; i++) {
+        shortestPath.push(locations[shortestPathNodes[i]]);
+    }
+    callback(null, shortestPath);
+};
+
+
 module.exports = {
-    constructGraph: constructGraph
+    constructGraph: constructGraph,
+    convertNodesToLocations: convertNodesToLocations
 };

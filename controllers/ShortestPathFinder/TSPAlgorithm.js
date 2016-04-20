@@ -6,6 +6,7 @@
  */
 var tspDynamicAlgo = function tspDynamicAlgo(locations, graph, callback) {
     var shortestPathNodes = [];
+
     callback(null, locations, shortestPathNodes);
 };
 

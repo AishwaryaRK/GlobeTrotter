@@ -2,7 +2,7 @@
 var app = angular.module('GlobeTrotter', []);
 (function () {
 
-    app.controller('InputLocationController', ['$scope','ApiFactory', function ($scope,ApiFactory) {
+    app.controller('InputLocationController', ['$scope', 'ApiFactory', function ($scope, ApiFactory) {
         $scope.locations = [];
         $scope.location;
         $scope.addLocation = function () {
@@ -12,7 +12,7 @@ var app = angular.module('GlobeTrotter', []);
         };
         $scope.getShortestPath = function () {
             ApiFactory.getShortestPath($scope.locations).then(function (data) {
-
+                alert(JSON.stringify(data));
             });
         };
     }]);

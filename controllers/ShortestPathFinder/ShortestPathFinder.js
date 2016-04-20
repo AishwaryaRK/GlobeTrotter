@@ -14,9 +14,10 @@ var getShortestPath = function getShortestPath(req, res, next) {
         GoogleMapUtility.getPositions,
         Grapher.constructGraph,
         TSPAlgorithm.tspDynamicAlgo,
-        convertNodesToLocations
+        Grapher.convertNodesToLocations
     ], function (err, result) {
-        req.shortestPath = result;
+        //req.shortestPath = result;
+        req.shortestPath = locations;
         next();
     });
 };

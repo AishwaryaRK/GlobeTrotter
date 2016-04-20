@@ -67,7 +67,6 @@ var convertNodesToLocations = function convertNodesToLocations(locations, shorte
     callback(null, shortestPath);
 };
 
-
 module.exports = {
     constructGraph: constructGraph,
     convertNodesToLocations: convertNodesToLocations

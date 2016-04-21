@@ -1,5 +1,8 @@
 'use strict';
 var app = angular.module('GlobeTrotter', []);
+var map;
+var directionsDisplay;
+var directionsService;
 (function () {
 
     app.controller('InputLocationController', ['$scope', 'ApiFactory', function ($scope, ApiFactory) {
@@ -11,8 +14,12 @@ var app = angular.module('GlobeTrotter', []);
             $scope.location = null;
         };
         $scope.getShortestPath = function () {
-            ApiFactory.getShortestPath($scope.locations).then(function (data) {
-                alert(JSON.stringify(data));
+            ApiFactory.getShortestPath($scope.locations).then(function (positions) {
+                alert(JSON.stringify(positions));
+                calculateAndDisplayRoute(directionsService, directionsDisplay, positions);
+                document.getElementById('mode').addEventListener('change', function () {
+                    calculateAndDisplayRoute(directionsService, directionsDisplay, positions);
+                });
             });
         };
     }]);
@@ -21,24 +28,10 @@ var app = angular.module('GlobeTrotter', []);
         $scope.copyrightLabel = new Date().getFullYear() + ' HirokiARK';
     }]);
 
-    //app.directive('myEnter', function () {
-    //    return function (scope, element, attrs) {
-    //        element.bind("keydown keypress", function (event) {
-    //            if (event.which === 13) {
-    //                scope.$apply(function () {
-    //                    scope.$eval(attrs.myEnter);
-    //                });
-    //
-    //                event.preventDefault();
-    //            }
-    //        });
-    //    };
-    //});
-
 })();
 
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -33.8688, lng: 151.2195},
         zoom: 13
     });
@@ -51,7 +44,6 @@ function initMap() {
         map: map,
         anchorPoint: new google.maps.Point(0, -29)
     });
-
     autocomplete.addListener('place_changed', function () {
         infowindow.close();
         marker.setVisible(false);
@@ -88,33 +80,25 @@ function initMap() {
         infowindow.open(map, marker);
     });
 
-
-    //-----------------------------------------------------------------------------
-
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    var directionsService = new google.maps.DirectionsService;
-    //var map = new google.maps.Map(document.getElementById('map'), {
-    //    zoom: 14,
-    //    center: {lat: 37.77, lng: -122.447}
-    //});
+    directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsService = new google.maps.DirectionsService;
     directionsDisplay.setMap(map);
-
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
-    document.getElementById('mode').addEventListener('change', function() {
-        calculateAndDisplayRoute(directionsService, directionsDisplay);
-    });
-
 }
 
 
-function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+function calculateAndDisplayRoute(directionsService, directionsDisplay, positions) {
     var selectedMode = document.getElementById('mode').value;
+    var waypoints = [];
+    for (var i = 1; i < positions.length - 1; i++) {
+        waypoints.push({
+            location: positions[i],
+            stopover: true
+        })
+    }
     directionsService.route({
-        origin: {lat: 37.77, lng: -122.447},  // Haight.
-        destination: {lat: 37.768, lng: -122.511},  // Ocean Beach.
-        // Note that Javascript allows us to access the constant
-        // using square brackets and a string value as its
-        // "property."
+        origin: positions[0],
+        destination: positions[positions.length - 1],
+        waypoints: waypoints,
         travelMode: google.maps.TravelMode[selectedMode]
     }, function (response, status) {
         if (status == google.maps.DirectionsStatus.OK) {

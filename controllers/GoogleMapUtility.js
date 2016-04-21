@@ -36,6 +36,8 @@ var getPosition = function getPosition(location, callback) {
  */
 var getPositions = function getPositions(locations, callback) {
     var positions = [];
+    console.log("in getPos");
+    console.log(locations);
     async.each(locations, function (location, onDone) {
         getPosition(location, function (position) {
             positions.push(position);

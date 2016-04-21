@@ -27,14 +27,12 @@ var getDistance = function getDistance(position1, position2, callback) {
  Built for the pattern of an async.waterfall.
  Callback first param is for errors.
  */
-var constructGraph = function constructGraph(locations, callback) {
-    console.log("in construct graph");
-    console.log(locations);
+var constructGraph = function constructGraph(locations, positions, callback) {
     var graph = [];
     var functions = [];
-    for (var i = 0; i < locations.length; i++) {
-        for (var j = 0; j < locations.length; j++) {
-            functions.push(getDistance.bind(null, locations[i], locations[j]));
+    for (var i = 0; i < positions.length; i++) {
+        for (var j = 0; j < positions.length; j++) {
+            functions.push(getDistance.bind(null, positions[i], positions[j]));
         }
     }
     async.parallel(functions, function (err, results) {
@@ -43,15 +41,15 @@ var constructGraph = function constructGraph(locations, callback) {
             return;
         }
         var k = 0;
-        for (var i = 0; i < locations.length; i++) {
+        for (var i = 0; i < positions.length; i++) {
             graph[i] = [];
-            for (var j = 0; j < locations.length; j++) {
+            for (var j = 0; j < positions.length; j++) {
                 graph[i].push(results[k++]);
             }
         }
         console.log("graph--->");
         console.log(graph);
-        callback(null, locations, graph);
+        callback(null, locations, positions, graph);
     });
 };
 
@@ -59,12 +57,12 @@ var constructGraph = function constructGraph(locations, callback) {
  Built for the pattern of an async.waterfall.
  Callback first param is for errors.
  */
-var convertNodesToLocations = function convertNodesToLocations(locations, shortestPathNodes, callback) {
+var convertNodesToLocations = function convertNodesToLocations(locations, positions, shortestPathNodes, callback) {
     var shortestPath = [];
     for (var i = 0; i < shortestPathNodes.length; i++) {
-        shortestPath.push(locations[shortestPathNodes[i]]);
+        shortestPath.push(positions[shortestPathNodes[i]]);
     }
-    callback(null, shortestPath);
+    callback(null, positions);
 };
 
 module.exports = {

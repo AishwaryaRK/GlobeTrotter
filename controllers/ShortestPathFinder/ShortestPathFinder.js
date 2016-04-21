@@ -16,8 +16,7 @@ var getShortestPath = function getShortestPath(req, res, next) {
         TSPAlgorithm.tspDynamicAlgo,
         Grapher.convertNodesToLocations
     ], function (err, result) {
-        //req.shortestPath = result;
-        req.shortestPath = locations;
+        req.shortestPath = result;
         next();
     });
 };

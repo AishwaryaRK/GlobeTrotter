@@ -47,8 +47,6 @@ var constructGraph = function constructGraph(locations, positions, callback) {
                 graph[i].push(results[k++]);
             }
         }
-        console.log("graph--->");
-        console.log(graph);
         callback(null, locations, positions, graph);
     });
 };
@@ -62,7 +60,7 @@ var convertNodesToLocations = function convertNodesToLocations(locations, positi
     for (var i = 0; i < shortestPathNodes.length; i++) {
         shortestPath.push(positions[shortestPathNodes[i]]);
     }
-    callback(null, positions);
+    callback(null, shortestPath);
 };
 
 module.exports = {
